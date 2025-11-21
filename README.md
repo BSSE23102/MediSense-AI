@@ -831,22 +831,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **MediSense AI is an educational/hackathon project and should NOT be used as a substitute for professional medical advice, diagnosis, or treatment.** Always consult qualified healthcare providers for medical concerns.
 
 ---
-
-## 📞 Contact & Support
-
-- **Project Repository**: [GitHub](https://github.com/yourusername/medisense-ai)
-- **Issues**: [Report bugs](https://github.com/yourusername/medisense-ai/issues)
-- **Email**: team@medisense.ai
-
----
-
-## 🙏 Acknowledgments
-
-- World Health Organization (WHO) for medical datasets
-- National Institutes of Health (NIH) for MedlinePlus resources
-- Open-source community for tools and libraries
-- Hackathon organizers for the opportunity
-
----
-
-**Built with ❤️ for better healthcare accessibility**
