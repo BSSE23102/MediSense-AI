@@ -1,0 +1,195 @@
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  width: auto;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 16px 32px;
+  background: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-text);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.logo:hover {
+  color: var(--secondary-text);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: var(--secondary-text);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.nav-link i {
+  font-size: 1.3rem;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link .nav-text {
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+}
+
+.nav-link:hover {
+  color: var(--primary-text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link:hover i {
+  transform: scale(1.1);
+}
+
+.nav-link.active {
+  color: var(--primary-text);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Scrolled State - Contract to pills */
+.navbar.scrolled {
+  top: 12px;
+}
+
+.navbar.scrolled .navbar-content {
+  padding: 12px 24px;
+  gap: 32px;
+}
+
+.navbar.scrolled .logo {
+  font-size: 1rem;
+}
+
+.navbar.scrolled .nav-links {
+  gap: 6px;
+}
+
+.navbar.scrolled .nav-link {
+  padding: 8px 12px;
+  gap: 0;
+  width: 40px;
+  justify-content: center;
+}
+
+.navbar.scrolled .nav-link i {
+  font-size: 1.2rem;
+}
+
+.navbar.scrolled .nav-link .nav-text {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    top: 10px;
+    width: calc(100% - 32px);
+    max-width: 600px;
+  }
+  
+  .navbar-content {
+    padding: 12px 20px;
+    gap: 24px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    font-size: 1rem;
+  }
+  
+  .nav-links {
+    gap: 4px;
+  }
+  
+  .nav-link {
+    padding: 8px 14px;
+    gap: 6px;
+    font-size: 0.85rem;
+  }
+  
+  .nav-link i {
+    font-size: 1.1rem;
+  }
+  
+  /* Always show icons only on mobile when scrolled */
+  .navbar.scrolled .navbar-content {
+    padding: 10px 16px;
+    gap: 16px;
+  }
+  
+  .navbar.scrolled .nav-link {
+    padding: 8px;
+    width: 36px;
+  }
+  
+  .navbar.scrolled .nav-link i {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    width: calc(100% - 24px);
+  }
+  
+  .navbar-content {
+    padding: 10px 16px;
+    gap: 16px;
+  }
+  
+  .logo {
+    font-size: 0.9rem;
+  }
+  
+  .logo-text {
+    display: block;
+  }
+  
+  .nav-link .nav-text {
+    display: none;
+  }
+  
+  .nav-link {
+    padding: 8px;
+    width: 36px;
+    justify-content: center;
+  }
+}
