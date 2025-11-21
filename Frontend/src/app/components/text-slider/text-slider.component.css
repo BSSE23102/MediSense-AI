@@ -2,9 +2,9 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  background: rgba(255, 255, 255, 0.02);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--primary-bg);
+  border-top: 1px solid rgba(25, 167, 206, 0.3);
+  border-bottom: 1px solid rgba(25, 167, 206, 0.3);
   padding: 16px 0;
   margin: var(--spacing-md) 0;
 }
@@ -24,12 +24,12 @@
   font-size: 1.1rem;
   font-weight: 400;
   letter-spacing: 0.05em;
-  color: var(--secondary-text);
+  color: var(--accent-color);
   text-transform: uppercase;
 }
 
 .separator {
-  color: var(--tertiary-text);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 0.8rem;
 }
 

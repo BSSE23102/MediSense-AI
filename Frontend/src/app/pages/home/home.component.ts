@@ -53,9 +53,10 @@ export class HomeComponent implements AfterViewInit {
         datasets: [{
           label: 'Cases per 100k',
           data: [10500, 31400, 6950, 4420, 8100],
-          backgroundColor: 'rgba(255, 255, 255, 0.1)',
-          borderColor: 'rgba(255, 255, 255, 0.3)',
-          borderWidth: 1
+          backgroundColor: 'rgba(25, 167, 206, 0.8)',
+          borderColor: '#19A7CE',
+          borderWidth: 2,
+          borderRadius: 8
         }]
       },
       options: {
@@ -64,22 +65,22 @@ export class HomeComponent implements AfterViewInit {
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: 'rgba(17, 17, 17, 0.95)',
+            backgroundColor: 'rgba(11, 36, 71, 0.95)',
             titleColor: '#ffffff',
-            bodyColor: '#a0a0a0',
-            borderColor: '#222222',
-            borderWidth: 1
+            bodyColor: '#D2E9E9',
+            borderColor: '#19A7CE',
+            borderWidth: 2
           }
         },
         scales: {
           y: {
             beginAtZero: true,
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#a0a0a0' }
+            grid: { color: 'rgba(11, 36, 71, 0.1)' },
+            ticks: { color: '#334155', font: { size: 12 } }
           },
           x: {
             grid: { display: false },
-            ticks: { color: '#a0a0a0' }
+            ticks: { color: '#334155', font: { size: 12 } }
           }
         }
       }
@@ -93,13 +94,13 @@ export class HomeComponent implements AfterViewInit {
         datasets: [{
           data: [45, 30, 18, 7],
           backgroundColor: [
-            'rgba(255, 255, 255, 0.15)',
-            'rgba(255, 255, 255, 0.1)',
-            'rgba(255, 255, 255, 0.06)',
-            'rgba(255, 255, 255, 0.03)'
+            'rgba(25, 167, 206, 0.8)',
+            'rgba(11, 36, 71, 0.8)',
+            'rgba(210, 233, 233, 0.8)',
+            'rgba(239, 68, 68, 0.8)'
           ],
-          borderColor: '#222222',
-          borderWidth: 1
+          borderColor: '#FFFFFF',
+          borderWidth: 3
         }]
       },
       options: {
@@ -108,14 +109,14 @@ export class HomeComponent implements AfterViewInit {
         plugins: {
           legend: {
             position: 'bottom',
-            labels: { color: '#a0a0a0', padding: 15 }
+            labels: { color: '#334155', padding: 15, font: { size: 12 } }
           },
           tooltip: {
-            backgroundColor: 'rgba(17, 17, 17, 0.95)',
+            backgroundColor: 'rgba(11, 36, 71, 0.95)',
             titleColor: '#ffffff',
-            bodyColor: '#a0a0a0',
-            borderColor: '#222222',
-            borderWidth: 1
+            bodyColor: '#D2E9E9',
+            borderColor: '#19A7CE',
+            borderWidth: 2
           }
         }
       }
@@ -129,10 +130,16 @@ export class HomeComponent implements AfterViewInit {
         datasets: [{
           label: 'Accuracy %',
           data: [87, 91, 94, 96, 98],
-          borderColor: 'rgba(255, 255, 255, 0.5)',
-          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderColor: '#19A7CE',
+          backgroundColor: 'rgba(25, 167, 206, 0.2)',
           tension: 0.4,
-          fill: true
+          fill: true,
+          borderWidth: 3,
+          pointBackgroundColor: '#19A7CE',
+          pointBorderColor: '#FFFFFF',
+          pointBorderWidth: 3,
+          pointRadius: 6,
+          pointHoverRadius: 8
         }]
       },
       options: {
@@ -141,11 +148,11 @@ export class HomeComponent implements AfterViewInit {
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: 'rgba(17, 17, 17, 0.95)',
+            backgroundColor: 'rgba(11, 36, 71, 0.95)',
             titleColor: '#ffffff',
-            bodyColor: '#a0a0a0',
-            borderColor: '#222222',
-            borderWidth: 1
+            bodyColor: '#D2E9E9',
+            borderColor: '#19A7CE',
+            borderWidth: 2
           }
         },
         scales: {
@@ -153,12 +160,12 @@ export class HomeComponent implements AfterViewInit {
             beginAtZero: false,
             min: 80,
             max: 100,
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#a0a0a0' }
+            grid: { color: 'rgba(11, 36, 71, 0.1)' },
+            ticks: { color: '#334155', font: { size: 12 } }
           },
           x: {
             grid: { display: false },
-            ticks: { color: '#a0a0a0' }
+            ticks: { color: '#334155', font: { size: 12 } }
           }
         }
       }

@@ -4,20 +4,22 @@
    ========================================== */
 
 :root {
-    /* Color System - Ultra Minimal B&W */
-    --primary-bg: #000000;
-    --secondary-bg: #0a0a0a;
-    --card-bg: #111111;
-    --card-hover: #1a1a1a;
-    --primary-text: #ffffff;
-    --secondary-text: #a0a0a0;
-    --tertiary-text: #666666;
-    --accent-color: #ffffff;
-    --border-color: #222222;
+    /* Color System - Professional Medical Platform */
+    --primary-bg: #0B2447;        /* Deep Navy - Headers, main headings, footer */
+    --secondary-bg: #0d2d5c;      /* Slightly lighter navy for depth */
+    --card-bg: #FFFFFF;           /* Clean White - Card backgrounds */
+    --card-hover: #f8f9fa;        /* Very light grey for hover */
+    --primary-text: #0B2447;      /* Deep Navy for main text on light bg */
+    --secondary-text: #334155;    /* Slate Grey - Body text */
+    --tertiary-text: #64748b;     /* Lighter slate for subtle text */
+    --accent-color: #19A7CE;      /* AI Teal - Primary buttons, icons, active states */
+    --accent-light: #D2E9E9;      /* Soft Sky - Section backgrounds, highlights */
+    --border-color: #e2e8f0;      /* Light border */
     --success: #22c55e;
     --warning: #f59e0b;
-    --danger: #ef4444;
-    --info: #3b82f6;
+    --danger: #EF4444;            /* Soft Red - Error messages, high risk */
+    --info: #19A7CE;              /* AI Teal for info */
+    --text-on-dark: #FFFFFF;      /* White text for dark backgrounds */
     
     /* Spacing Scale */
     --spacing-xs: 8px;
@@ -31,10 +33,10 @@
     --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.7);
+    --shadow-sm: 0 1px 2px rgba(11, 36, 71, 0.08);
+    --shadow: 0 4px 12px rgba(11, 36, 71, 0.12);
+    --shadow-md: 0 8px 24px rgba(11, 36, 71, 0.16);
+    --shadow-lg: 0 12px 32px rgba(11, 36, 71, 0.2);
     
     /* Border Radius */
     --radius-sm: 12px;
@@ -64,8 +66,8 @@ html {
 
 body {
     font-family: var(--font-primary);
-    background-color: var(--primary-bg);
-    color: var(--primary-text);
+    background-color: var(--accent-light);
+    color: var(--secondary-text);
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -190,24 +192,28 @@ input, textarea, select {
 }
 
 .btn-primary {
-    background: var(--primary-text);
-    color: var(--primary-bg);
-    border-color: var(--primary-text);
+    background: var(--accent-color);
+    color: #FFFFFF;
+    border-color: var(--accent-color);
 }
 
 .btn-primary:hover {
-    background: var(--secondary-text);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+    background: #1596b5;
+    border-color: #1596b5;
+    box-shadow: 0 8px 16px rgba(25, 167, 206, 0.3);
+    transform: translateY(-2px);
 }
 
 .btn-outline {
     background: transparent;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
 }
 
 .btn-outline:hover {
-    border-color: var(--primary-text);
-    background: var(--card-bg);
+    border-color: var(--accent-color);
+    background: var(--accent-color);
+    color: #FFFFFF;
 }
 
 .btn-icon {
@@ -289,8 +295,8 @@ input, textarea, select {
 .form-textarea,
 .form-select {
     width: 100%;
-    padding: 14px 20px;
-    background: var(--secondary-bg);
+    padding: 12px 16px;
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     color: var(--primary-text);
@@ -302,12 +308,13 @@ input, textarea, select {
 .form-textarea:focus,
 .form-select:focus {
     outline: none;
-    border-color: var(--primary-text);
+    border-color: var(--accent-color);
     background: var(--card-bg);
+    box-shadow: 0 0 0 3px rgba(25, 167, 206, 0.1);
 }
 
 .form-textarea {
-    min-height: 150px;
+    min-height: 120px;
     resize: vertical;
 }
 

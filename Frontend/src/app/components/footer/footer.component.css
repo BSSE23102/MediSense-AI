@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
   padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md) var(--spacing-md);
-  background: rgba(10, 10, 10, 0.95);
-  border-top: 1px solid var(--border-color);
+  background: var(--primary-bg);
+  border-top: 1px solid rgba(25, 167, 206, 0.2);
   font-family: var(--font-primary);
 }
 
@@ -22,7 +22,7 @@
   display: flex;
   justify-content: center;
   padding-bottom: var(--spacing-md);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(25, 167, 206, 0.3);
 }
 
 .footer-brand {
@@ -36,13 +36,13 @@
   font-family: var(--font-primary);
   font-size: 1.1rem;
   font-weight: 400;
-  color: var(--primary-text);
+  color: var(--text-on-dark);
   letter-spacing: 0.03em;
 }
 
 .footer-tagline {
   font-size: 0.88rem;
-  color: var(--tertiary-text);
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 400;
   letter-spacing: 0.01em;
 }
@@ -64,11 +64,11 @@
   font-family: var(--font-primary);
   font-size: 0.95rem;
   font-weight: 400;
-  color: var(--secondary-text);
+  color: rgba(255, 255, 255, 0.9);
   letter-spacing: 0.02em;
   margin: 0;
   padding-bottom: 4px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(25, 167, 206, 0.2);
 }
 
 .section-links {
@@ -78,7 +78,7 @@
 }
 
 .section-links a {
-  color: var(--tertiary-text);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 0.92rem;
   padding: 4px 0;
   transition: var(--transition);
@@ -91,10 +91,11 @@
 .section-links a i {
   font-size: 1rem;
   transition: color 0.3s;
+  color: var(--accent-color);
 }
 
 .section-links a:hover {
-  color: var(--primary-text);
+  color: var(--text-on-dark);
   padding-left: 4px;
 }
 
@@ -103,11 +104,11 @@
   display: flex;
   justify-content: center;
   padding-top: var(--spacing-md);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(25, 167, 206, 0.2);
 }
 
 .footer-info {
-  color: var(--tertiary-text);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.88rem;
   font-weight: 400;
 }

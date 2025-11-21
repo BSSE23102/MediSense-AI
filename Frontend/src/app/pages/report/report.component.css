@@ -57,27 +57,27 @@
 }
 
 .upload-content .btn {
-  background: #000000;
-  color: var(--primary-text);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 14px 32px;
+  background: var(--accent-color);
+  color: #FFFFFF;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 5px 12px;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
 }
 
 .upload-content .btn:hover {
-  background: #0a0a0a;
-  border-color: var(--primary-text);
+  background: #1596b8;
+  border-color: #1596b8;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(25, 167, 206, 0.3);
 }
 
 .file-info {
