@@ -28,10 +28,21 @@ class OCRService:
         try:
             import pytesseract
             from PIL import Image
+            import platform
             
             # Set Tesseract command path if provided (Windows)
             if Config.TESSERACT_CMD:
                 pytesseract.pytesseract.tesseract_cmd = Config.TESSERACT_CMD
+            elif platform.system() == 'Windows':
+                # Try default Windows installation path
+                default_paths = [
+                    r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+                    r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+                ]
+                for path in default_paths:
+                    if os.path.exists(path):
+                        pytesseract.pytesseract.tesseract_cmd = path
+                        break
             
             self.pytesseract = pytesseract
             self.Image = Image
