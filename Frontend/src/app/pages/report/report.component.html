@@ -38,6 +38,21 @@
         </div>
       </div>
 
+      <!-- Selected File Info -->
+      <div class="selected-file-info" *ngIf="selectedFile && !isProcessing">
+        <div class="file-details">
+          <i class="ph ph-file-text"></i>
+          <div class="file-meta">
+            <span class="file-name">{{ selectedFile.name }}</span>
+            <span class="file-size">{{ getFileSize(selectedFile.size) }} • {{ getFileType(selectedFile) }}</span>
+          </div>
+          <button class="btn btn-sm btn-outline" (click)="reset()">
+            <i class="ph ph-x"></i>
+            Remove
+          </button>
+        </div>
+      </div>
+
       <div class="error-message" *ngIf="error">
         <i class="ph ph-warning-circle"></i>
         {{ error }}
@@ -49,17 +64,23 @@
       <app-loader></app-loader>
       <p class="processing-text">Analyzing your medical report...</p>
       <div class="processing-steps">
-        <div class="step">
+        <div class="step" [class.active]="currentStep === 'ocr'" [class.completed]="currentStep === 'summarizing' || currentStep === 'complete'">
           <i class="ph ph-scan"></i>
           <span>Extracting text with OCR</span>
+          <span class="step-status" *ngIf="currentStep === 'ocr'">In progress...</span>
+          <span class="step-status success" *ngIf="ocrConfidence > 0">
+            ✓ {{ (ocrConfidence * 100).toFixed(0) }}% confidence
+          </span>
         </div>
-        <div class="step">
+        <div class="step" [class.active]="currentStep === 'summarizing'" [class.completed]="currentStep === 'complete'">
           <i class="ph ph-brain"></i>
           <span>Analyzing with AI</span>
+          <span class="step-status" *ngIf="currentStep === 'summarizing'">In progress...</span>
         </div>
-        <div class="step">
+        <div class="step" [class.active]="currentStep === 'complete'" [class.completed]="currentStep === 'complete'">
           <i class="ph ph-check-circle"></i>
           <span>Generating summary</span>
+          <span class="step-status success" *ngIf="currentStep === 'complete'">✓ Complete</span>
         </div>
       </div>
     </div>

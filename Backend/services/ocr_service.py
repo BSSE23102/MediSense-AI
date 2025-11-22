@@ -28,10 +28,21 @@ class OCRService:
         try:
             import pytesseract
             from PIL import Image
+            import platform
             
             # Set Tesseract command path if provided (Windows)
             if Config.TESSERACT_CMD:
                 pytesseract.pytesseract.tesseract_cmd = Config.TESSERACT_CMD
+            elif platform.system() == 'Windows':
+                # Try default Windows installation path
+                default_paths = [
+                    r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+                    r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+                ]
+                for path in default_paths:
+                    if os.path.exists(path):
+                        pytesseract.pytesseract.tesseract_cmd = path
+                        break
             
             self.pytesseract = pytesseract
             self.Image = Image
@@ -74,6 +85,12 @@ class OCRService:
     def _extract_with_tesseract(self, image_path):
         """Extract text using Tesseract OCR"""
         try:
+            # Check if Tesseract is available
+            try:
+                self.pytesseract.get_tesseract_version()
+            except Exception as e:
+                raise Exception(f"Tesseract OCR not found. Please install Tesseract OCR. Error: {str(e)}")
+            
             image = self.Image.open(image_path)
             
             # Extract text
@@ -88,6 +105,11 @@ class OCRService:
             
             return extracted_text, confidence
             
+        except FileNotFoundError as e:
+            raise Exception(f"Tesseract OCR executable not found. Please install Tesseract OCR from https://github.com/UB-Mannheim/tesseract/wiki")
         except Exception as e:
-            raise Exception(f"OCR extraction failed: {str(e)}")
+            error_msg = str(e)
+            if 'tesseract' in error_msg.lower() and 'not found' in error_msg.lower():
+                raise Exception(f"Tesseract OCR not installed. Please install it from https://github.com/UB-Mannheim/tesseract/wiki")
+            raise Exception(f"OCR extraction failed: {error_msg}")
 

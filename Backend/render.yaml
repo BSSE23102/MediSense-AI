@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: medisense-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      apt-get update
+      apt-get install -y tesseract-ocr tesseract-ocr-eng
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FLASK_ENV
+        value: production
+      - key: TESSERACT_CMD
+        value: /usr/bin/tesseract
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: USE_EASYOCR
+        value: false
+      - key: CORS_ORIGINS
+        value: https://your-frontend-app.onrender.com,http://localhost:4200
+

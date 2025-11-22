@@ -5,8 +5,10 @@
 This is the Flask backend for MediSense AI, providing APIs for:
 
 - Medical report OCR and text extraction
-- AI-powered report summarization
+- AI-powered report summarization (using LangChain + Gemini)
 - Symptom checking with RAG-based analysis
+
+**✨ New:** Summarization module now uses LangChain with structured outputs for better accuracy and reliability!
 
 ## 🚀 Quick Start
 
@@ -38,11 +40,21 @@ pip install -r requirements.txt
 
 #### 3. Install Tesseract OCR
 
-**Windows:**
+**Windows (Quick Setup):**
+
+Run the helper script:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File install_tesseract_windows.ps1
+```
+
+Or manually:
 
 - Download from: https://github.com/UB-Mannheim/tesseract/wiki
 - Install to default location: `C:\Program Files\Tesseract-OCR`
 - Or set `TESSERACT_CMD` in `.env` file
+
+**Note:** See `TESSERACT_SETUP.md` for detailed instructions.
 
 **Linux:**
 
@@ -84,7 +96,15 @@ SECRET_KEY=your-secret-key-here
 python database/dataset_loader.py
 ```
 
-#### 6. Run the Server
+#### 6. Test Summarization (Optional)
+
+```bash
+python test_summarization.py
+```
+
+This will verify that LangChain and Gemini are working correctly.
+
+#### 7. Run the Server
 
 ```bash
 python app.py

@@ -1,4 +1,5 @@
 import os
+import platform
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,7 +26,12 @@ class Config:
     EMBEDDINGS_PATH = os.path.join(os.path.dirname(__file__), 'database', 'embeddings')
     
     # OCR Configuration
-    TESSERACT_CMD = os.environ.get('TESSERACT_CMD', None)  # Path to tesseract executable (Windows)
+    # Auto-detect Tesseract path based on platform
+    if platform.system() == 'Windows':
+        TESSERACT_CMD = os.environ.get('TESSERACT_CMD', r'C:\Program Files\Tesseract-OCR\tesseract.exe')
+    else:
+        # For Linux (Render, PythonAnywhere, Railway, etc.)
+        TESSERACT_CMD = os.environ.get('TESSERACT_CMD', '/usr/bin/tesseract')
     USE_EASYOCR = os.environ.get('USE_EASYOCR', 'false').lower() == 'true'
     
     # LLM Configuration
