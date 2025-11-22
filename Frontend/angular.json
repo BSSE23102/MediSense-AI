@@ -46,6 +46,7 @@
                 }
               ],
               "outputHashing": "all",
+              "baseHref": "/MediSense-AI/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -94,6 +95,13 @@
               "src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/MediSense-AI/",
+            "deployUrl": "https://BSSE23102.github.io/MediSense-AI/"
           }
         }
       }
