@@ -45,9 +45,14 @@ class Config:
     TOP_K_RESULTS = int(os.environ.get('TOP_K_RESULTS', 5))
     
     # CORS Configuration
-    # Default origins: localhost for development + GitHub Pages
-    default_origins = 'http://localhost:4200,https://bsse23102.github.io'
-    CORS_ORIGINS = os.environ.get('CORS_ORIGINS', default_origins).split(',')
+    # For production, set CORS_ORIGINS in environment variables
+    # For development/testing, you can use '*' to allow all origins
+    cors_origins_env = os.environ.get('CORS_ORIGINS', '*')  # Default to '*' for easier setup
+    if cors_origins_env == '*':
+        CORS_ORIGINS = ['*']
+    else:
+        # Split by comma and strip whitespace
+        CORS_ORIGINS = [origin.strip() for origin in cors_origins_env.split(',')]
     
     # Cloudinary Configuration (Optional)
     CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME', '')

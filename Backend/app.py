@@ -13,11 +13,21 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # Enable CORS with additional headers
-CORS(app, 
-     origins=app.config['CORS_ORIGINS'],
-     allow_headers=['Content-Type', 'Authorization'],
-     methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-     supports_credentials=True)
+cors_origins = app.config['CORS_ORIGINS']
+if cors_origins == ['*']:
+    # Allow all origins (for development/testing)
+    CORS(app, 
+         resources={r"/api/*": {"origins": "*"}},
+         allow_headers=['Content-Type', 'Authorization', 'Accept'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+         supports_credentials=False)
+else:
+    # Allow specific origins
+    CORS(app, 
+         origins=cors_origins,
+         allow_headers=['Content-Type', 'Authorization', 'Accept'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+         supports_credentials=False)
 
 # Create necessary directories
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
