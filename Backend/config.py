@@ -45,7 +45,9 @@ class Config:
     TOP_K_RESULTS = int(os.environ.get('TOP_K_RESULTS', 5))
     
     # CORS Configuration
-    CORS_ORIGINS = os.environ.get('CORS_ORIGINS', 'http://localhost:4200').split(',')
+    # Default origins: localhost for development + GitHub Pages
+    default_origins = 'http://localhost:4200,https://bsse23102.github.io'
+    CORS_ORIGINS = os.environ.get('CORS_ORIGINS', default_origins).split(',')
     
     # Cloudinary Configuration (Optional)
     CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME', '')

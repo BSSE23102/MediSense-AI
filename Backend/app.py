@@ -12,8 +12,12 @@ import os
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Enable CORS
-CORS(app, origins=app.config['CORS_ORIGINS'])
+# Enable CORS with additional headers
+CORS(app, 
+     origins=app.config['CORS_ORIGINS'],
+     allow_headers=['Content-Type', 'Authorization'],
+     methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+     supports_credentials=True)
 
 # Create necessary directories
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
