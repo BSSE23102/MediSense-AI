@@ -89,8 +89,25 @@ def extract_text():
             raise e
             
     except Exception as e:
+        import traceback
+        error_message = str(e)
+        error_details = traceback.format_exc()
+        
+        # Log the full error for debugging
+        print(f"OCR Error: {error_message}")
+        print(f"Traceback: {error_details}")
+        
+        # Provide user-friendly error messages
+        if 'tesseract' in error_message.lower() or 'TesseractNotFoundError' in error_message:
+            error_message = 'Tesseract OCR is not installed or not found. Please install Tesseract OCR on your system.'
+        elif 'No module named' in error_message:
+            error_message = f'Missing Python package: {error_message}. Please install required dependencies.'
+        elif 'FileNotFoundError' in error_message:
+            error_message = 'File not found. Please try uploading the file again.'
+        
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': error_message,
+            'details': error_details if Config.DEBUG else None
         }), 500
 

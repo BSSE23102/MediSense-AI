@@ -227,3 +227,4 @@ if __name__ == '__main__':
     success = test_ocr_and_summarize()
     sys.exit(0 if success else 1)
 
+

@@ -18,6 +18,8 @@ export class ReportComponent {
   extractedText = '';
   summary: SummaryResponse | null = null;
   error = '';
+  ocrConfidence: number = 0;
+  currentStep: 'upload' | 'ocr' | 'summarizing' | 'complete' = 'upload';
 
   constructor(private apiService: ApiService) {}
 
@@ -73,43 +75,103 @@ export class ReportComponent {
     this.isProcessing = true;
     this.error = '';
     this.summary = null;
+    this.extractedText = '';
+    this.ocrConfidence = 0;
+    this.currentStep = 'ocr';
 
     // Step 1: Extract text with OCR
     this.apiService.extractText(this.selectedFile).subscribe({
       next: (response) => {
         if (response.success) {
           this.extractedText = response.extracted_text;
+          this.ocrConfidence = response.confidence;
+          console.log(`OCR completed. Confidence: ${(response.confidence * 100).toFixed(2)}%`);
+          console.log(`Extracted text length: ${this.extractedText.length} characters`);
+          
+          // Validate extracted text
+          if (!this.extractedText || this.extractedText.trim().length < 10) {
+            this.error = 'Could not extract enough text from the file. Please ensure the image is clear and readable.';
+            this.isProcessing = false;
+            this.currentStep = 'upload';
+            return;
+          }
+          
           // Step 2: Summarize the extracted text
+          this.currentStep = 'summarizing';
           this.summarizeText();
         } else {
-          this.error = 'Failed to extract text from the file';
+          this.error = 'Failed to extract text from the file. Please try again or use a different file.';
           this.isProcessing = false;
+          this.currentStep = 'upload';
         }
       },
       error: (err) => {
-        this.error = 'Error processing file. Please try again.';
-        this.isProcessing = false;
         console.error('OCR Error:', err);
+        
+        // Extract error message from backend response
+        let errorMessage = 'Error processing file. Please try again.';
+        
+        if (err.error && err.error.error) {
+          // Backend returned an error message
+          errorMessage = err.error.error;
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+        
+        if (err.status === 0) {
+          errorMessage = 'Cannot connect to the server. Please ensure the backend is running on http://localhost:5000';
+        } else if (err.status === 400) {
+          errorMessage = err.error?.error || 'Invalid file format. Please upload a PDF or image file (PNG, JPG, JPEG).';
+        } else if (err.status === 413) {
+          errorMessage = 'File is too large. Maximum size is 16MB.';
+        } else if (err.status === 500) {
+          // Show the actual backend error message
+          errorMessage = err.error?.error || 'Server error occurred. Please check the backend logs.';
+        }
+        
+        this.error = errorMessage;
+        this.isProcessing = false;
+        this.currentStep = 'upload';
       }
     });
   }
 
   summarizeText() {
-    if (!this.extractedText) return;
+    if (!this.extractedText) {
+      this.error = 'No text available to summarize';
+      this.isProcessing = false;
+      this.currentStep = 'upload';
+      return;
+    }
 
     this.apiService.summarizeReport(this.extractedText).subscribe({
       next: (response) => {
         if (response.success) {
           this.summary = response;
+          this.currentStep = 'complete';
+          console.log('Summary generated successfully');
+          console.log('Key findings:', response.key_findings?.length || 0);
+          console.log('Medications:', response.medications?.length || 0);
+          console.log('Warnings:', response.critical_warnings?.length || 0);
         } else {
-          this.error = 'Failed to generate summary';
+          this.error = 'Failed to generate summary. The AI service may be unavailable.';
+          this.currentStep = 'upload';
         }
         this.isProcessing = false;
       },
       error: (err) => {
-        this.error = 'Error generating summary. Please try again.';
-        this.isProcessing = false;
         console.error('Summary Error:', err);
+        if (err.status === 0) {
+          this.error = 'Cannot connect to the server. Please ensure the backend is running.';
+        } else if (err.status === 400) {
+          this.error = 'Invalid request. The extracted text may be too short or invalid.';
+        } else if (err.status === 500) {
+          this.error = 'Server error. The AI service may be experiencing issues. Please try again later.';
+        } else {
+          this.error = `Error generating summary: ${err.message || 'Please try again.'}`;
+        }
+        this.isProcessing = false;
+        this.currentStep = 'upload';
       }
     });
   }
@@ -119,6 +181,20 @@ export class ReportComponent {
     this.extractedText = '';
     this.summary = null;
     this.error = '';
+    this.ocrConfidence = 0;
+    this.currentStep = 'upload';
+  }
+
+  getFileSize(size: number): string {
+    if (size < 1024) return size + ' B';
+    if (size < 1024 * 1024) return (size / 1024).toFixed(2) + ' KB';
+    return (size / (1024 * 1024)).toFixed(2) + ' MB';
+  }
+
+  getFileType(file: File): string {
+    if (file.type === 'application/pdf') return 'PDF';
+    if (file.type.startsWith('image/')) return file.type.split('/')[1].toUpperCase();
+    return 'Unknown';
   }
 
   getUrgencyClass(urgency: string): string {

@@ -85,6 +85,12 @@ class OCRService:
     def _extract_with_tesseract(self, image_path):
         """Extract text using Tesseract OCR"""
         try:
+            # Check if Tesseract is available
+            try:
+                self.pytesseract.get_tesseract_version()
+            except Exception as e:
+                raise Exception(f"Tesseract OCR not found. Please install Tesseract OCR. Error: {str(e)}")
+            
             image = self.Image.open(image_path)
             
             # Extract text
@@ -99,6 +105,11 @@ class OCRService:
             
             return extracted_text, confidence
             
+        except FileNotFoundError as e:
+            raise Exception(f"Tesseract OCR executable not found. Please install Tesseract OCR from https://github.com/UB-Mannheim/tesseract/wiki")
         except Exception as e:
-            raise Exception(f"OCR extraction failed: {str(e)}")
+            error_msg = str(e)
+            if 'tesseract' in error_msg.lower() and 'not found' in error_msg.lower():
+                raise Exception(f"Tesseract OCR not installed. Please install it from https://github.com/UB-Mannheim/tesseract/wiki")
+            raise Exception(f"OCR extraction failed: {error_msg}")
 
